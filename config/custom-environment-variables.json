@@ -1,0 +1,8 @@
+{
+    "storageUrl":"STORAGE_URL",
+    "localServer":"LOCAL_SERVER",
+    "apiServer":"API_SERVER",
+    "textApiServer":"TEXT_API_SERVER",
+    "bingApiServer":"BING_API_SERVER",
+    "cosmosApiServer":"COSMOS_API_SERVER"
+}

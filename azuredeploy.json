@@ -1,0 +1,135 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"siteName": {
+			"type": "string"
+		},
+		"hostingPlanName": {
+			"type": "string"
+		},
+		"siteLocation": {
+			"type": "string"
+		},
+		"sku": {
+			"type": "string",
+			"allowedValues": [
+				"Free",
+				"Shared",
+				"Basic",
+				"Standard"
+			],
+			"defaultValue": "Free"
+		},
+        "cognitiveserviceLocation":{
+            "type":"string",
+            "allowedValues":[
+                "East US",
+                "East US2",
+                "South Central US",
+                "West Central US",
+                "West US",
+                "West US2"
+            ]
+        },       
+        "cognitiveserviceName":{
+            "type":"string"
+        },
+        "cognitiveserviceSku": {
+			"type": "string",
+			"allowedValues": [
+				"F0",
+				"S0"
+			],
+			"defaultValue": "F0"
+		},		
+		"workerSize": {
+			"type": "string",
+			"allowedValues": [
+				"0",
+				"1",
+				"2"
+			],
+			"defaultValue": "0"
+		},
+		"repoUrl": {
+            "type": "string"
+            
+		},
+		"branch": {
+			"type": "string"
+		}
+	},
+	"variables": {
+		"cognitiveservicesid": "[resourceId('Microsoft.CognitiveServices/accounts', parameters('cognitiveserviceName'))]"
+	  },
+	"resources": [{
+			"apiVersion": "2014-06-01",
+			"name": "[parameters('hostingPlanName')]",
+			"type": "Microsoft.Web/serverFarms",
+			"location": "[parameters('siteLocation')]",
+			"properties": {
+				"name": "[parameters('hostingPlanName')]",
+				"sku": "[parameters('sku')]",
+				"workerSize": "[parameters('workerSize')]",
+				"numberOfWorkers": 1
+			}
+		},
+		{
+			"type":"Microsoft.CognitiveServices/accounts",
+			"sku": {
+				"name": "[parameters('cognitiveserviceSku')]"
+			},
+			"kind": "Face",
+			"name":"[parameters('cognitiveserviceName')]",
+			"apiVersion": "2016-02-01-preview",			
+			"location":"[parameters('cognitiveserviceLocation')]",
+			"scale": null,
+			"properties": {}			
+			
+		},
+		{
+			"apiVersion": "2014-06-01",
+			"name": "[parameters('siteName')]",
+			"type": "Microsoft.Web/Sites",
+			"location": "[parameters('siteLocation')]",
+			"dependsOn": [
+				"[resourceId('Microsoft.Web/serverFarms/', parameters('hostingPlanName'))]",
+				"[resourceId('Microsoft.CognitiveServices/accounts/', parameters('cognitiveserviceName'))]"
+			],
+			
+			"properties": {
+				"name": "[parameters('siteName')]",
+				"serverFarm": "[parameters('hostingPlanName')]"				
+			},
+			"resources": [
+				{
+					"apiVersion": "2015-08-01",
+					"type": "config",
+					"name": "appsettings",
+					"dependsOn": [
+						"[resourceId('Microsoft.Web/Sites', parameters('siteName'))]"
+					],
+					"properties": {
+						"subscriptionKey":"[listKeys(variables('cognitiveservicesid'),'2016-02-01-preview').key1]"						
+                    }                    
+				},
+				{
+					"apiVersion": "2014-04-01",
+					"name": "web",
+					"type": "sourcecontrols",
+					"dependsOn": [
+					  "[resourceId('Microsoft.Web/Sites', parameters('siteName'))]",
+					  "[concat('Microsoft.Web/Sites/', parameters('siteName'), '/config/appsettings')]"
+					],
+					"properties": {
+					  "RepoUrl": "[parameters('repoUrl')]",
+					  "branch": "[parameters('branch')]",
+					  "IsManualIntegration": true
+					}
+				  }
+			]
+		}		
+
+	]
+}

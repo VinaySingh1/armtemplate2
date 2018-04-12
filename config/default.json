@@ -1,0 +1,8 @@
+{    
+    "storageUrl":"https://cosmosstore.blob.core.windows.net/images/",
+    "localServer":"http://cosmosai-services.azurewebsites.net/",
+    "apiServer":"https://api.cosmos.ai/",
+    "textApiServer":"https://api.cosmos.ai/",
+    "bingApiServer":"https://api.cosmos.ai/bing/v7.0/",
+    "cosmosApiServer":"https://cosmosai-services-qa.azurewebsites.net/"
+}
