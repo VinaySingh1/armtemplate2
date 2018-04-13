@@ -112,7 +112,7 @@
 					],
 					"properties": {
 						"subscriptionKey":"[listKeys(variables('cognitiveservicesid'),'2016-02-01-preview').key1]"	,
-						"SCM_COMMAND_IDLE_TIMEOUT":"1800"
+						"SCM_COMMAND_IDLE_TIMEOUT":"1000"
                     }                    
 				},
 				{
