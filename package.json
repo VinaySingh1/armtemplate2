@@ -5,15 +5,16 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-	"postinstall": "npm run build",
-	"build": "ng build && npm start"	
+    "postinstall": "npm run-script build",
+    "build": "ng build",
+    "postbuild": "npm start"
   },
   "engines": {
     "node": "8.9.0",
     "npm": "5.3.0"
   },
   "dependencies": {
-	"@angular/cli": "1.0.3",
+    "@angular/cli": "1.0.3",
     "@angular/compiler-cli": "^4.0.0",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
