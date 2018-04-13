@@ -9,8 +9,11 @@
 	"build": "ng build && npm start"
 	
   },
-  "private": true,
   "dependencies": {
+	"@angular/cli": "1.0.3",
+    "@angular/compiler-cli": "^4.0.0",
+    "@types/jasmine": "2.5.38",
+    "@types/node": "~6.0.60",
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
     "@angular/core": "^4.0.0",
