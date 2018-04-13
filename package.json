@@ -6,8 +6,11 @@
   "scripts": {
     "start": "node server.js",
 	"postinstall": "npm run build",
-	"build": "ng build && npm start"
-	
+	"build": "ng build && npm start"	
+  },
+  "engines": {
+    "node": "8.9.1",
+    "npm": "5.2.0"
   },
   "dependencies": {
 	"@angular/cli": "1.0.3",
