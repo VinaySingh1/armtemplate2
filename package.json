@@ -2,8 +2,12 @@
   "name": "cognitive-vision-sample",
   "version": "0.0.0",
   "license": "MIT",
+  "main": "server.js"
   "scripts": {
-    "start": "ng build && node server.js"
+    "start": "node server.js",
+	"postinstall": "npm run build",
+	"build": "ng build && npm start",
+	
   },
   "private": true,
   "dependencies": {
