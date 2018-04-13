@@ -111,7 +111,8 @@
 						"[resourceId('Microsoft.Web/Sites', parameters('siteName'))]"
 					],
 					"properties": {
-						"subscriptionKey":"[listKeys(variables('cognitiveservicesid'),'2016-02-01-preview').key1]"						
+						"subscriptionKey":"[listKeys(variables('cognitiveservicesid'),'2016-02-01-preview').key1]"	,
+						"SCM_COMMAND_IDLE_TIMEOUT":"600"
                     }                    
 				},
 				{
