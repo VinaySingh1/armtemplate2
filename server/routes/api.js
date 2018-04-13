@@ -3,7 +3,7 @@ const express = require('express'),
       config = require('config');
 
 /* GET configuration variables */
-router.get('/', (req, res) => {       
+router.get('/', function(req, res){       
   res.send({"env_variables":config.util.toObject()});
 });
 
