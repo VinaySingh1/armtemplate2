@@ -10,8 +10,10 @@
     "postbuild": "npm start"
   },
   "engines": {
-    "node": "6.9.1"
+    "node": "6.9.1",
+    "npm": "3.10.8"
   },
+  "private": true,
   "dependencies": {
     "@angular/cli": "1.0.3",
     "@angular/compiler-cli": "^4.0.0",
