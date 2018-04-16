@@ -32,16 +32,15 @@
                 "West US2"
             ]
         },       
-        "cognitiveserviceName":{
-            "type":"string"
+        "accounts_visions_api_name": {
+            "type": "string"
         },
         "cognitiveserviceSku": {
 			"type": "string",
 			"allowedValues": [
 				"F0",
-				"S0"
-			],
-			"defaultValue": "F0"
+				"S1"
+			]			
 		},		
 		"workerSize": {
 			"type": "string",
@@ -61,7 +60,7 @@
 		}
 	},
 	"variables": {
-		"cognitiveservicesid": "[resourceId('Microsoft.CognitiveServices/accounts', parameters('cognitiveserviceName'))]"
+		"cognitiveservicesid": "[resourceId('Microsoft.CognitiveServices/accounts', parameters('accounts_visions_api_name'))]"
 	  },
 	"resources": [{
 			"apiVersion": "2014-06-01",
@@ -80,8 +79,8 @@
 			"sku": {
 				"name": "[parameters('cognitiveserviceSku')]"
 			},
-			"kind": "Face",
-			"name":"[parameters('cognitiveserviceName')]",
+			"kind": "ComputerVision",
+			"name":"[parameters('accounts_visions_api_name')]",
 			"apiVersion": "2016-02-01-preview",			
 			"location":"[parameters('cognitiveserviceLocation')]",
 			"scale": null,
@@ -95,7 +94,7 @@
 			"location": "[parameters('siteLocation')]",
 			"dependsOn": [
 				"[resourceId('Microsoft.Web/serverFarms/', parameters('hostingPlanName'))]",
-				"[resourceId('Microsoft.CognitiveServices/accounts/', parameters('cognitiveserviceName'))]"
+				"[resourceId('Microsoft.CognitiveServices/accounts/', parameters('accounts_visions_api_name'))]"
 			],
 			
 			"properties": {
